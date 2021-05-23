@@ -83,6 +83,5 @@ const struct argp diffs = {
 	.options = difficulties,
 	.parser = parse_opt,
 	.args_doc = 0x0,
-	.doc = "Gives a timer for kraken bastion."
-	" Arguments must be a positive non-zero value"
+	.doc = "Gives a timer for the Kraken bastion."
 };
