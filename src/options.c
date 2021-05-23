@@ -67,7 +67,7 @@ error_t parse_opt(int key, char *arg, struct argp_state *state)
 		case 'd':
 			if (check_seconds(arg, interval)) {
 				argp_error(state, "Invalid argument '%s'. "
-						"Must be a positive non-zero " "value.", arg);
+						"Must be a positive non-zero " "value. ", arg);
 			}
 			break;
 		case ARGP_KEY_END:
