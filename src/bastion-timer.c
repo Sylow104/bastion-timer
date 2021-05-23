@@ -1,7 +1,37 @@
 #include "bastion-timer.h"
 
+#include <stdio.h>
+#ifdef WIN32
+#include <winsock2.h>
+#else /* this is linux */
+#include <sys/types.h>
+#endif
+
 static uint32_t remaining_time = 0;
 static uint32_t decrement = 0;
+
+int timer_main(uint32_t interval)
+{
+        uint32_t i = 0;
+        struct timeval time;
+        while (1) {
+                if (i < interval) {
+                        fputc((i++) + '1', stdout);
+                        fputc(' ', stdout);
+                }
+                fflush(stdout);
+                
+                if (i == interval) {
+                        printf("Tick\n");
+                        i = 0;
+                }
+
+                time.tv_sec = 1;
+                time.tv_usec = 0;
+                select(0, NULL, NULL, NULL, &time);
+        }
+        return 0;
+}
 
 int timer_setup(uint32_t minute, uint32_t seconds, uint32_t n_decrement)
 {
