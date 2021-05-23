@@ -12,7 +12,7 @@ Run:
 mkdir build/ ;
 cd build/ ;
 cmake ;
-cmake --build;
+cmake --build ;
 ```
 Optionally:
 ```
@@ -23,5 +23,6 @@ cmake --install ;
 ```
 Default, -n, -a		Interval = 10 seconds,
 -e			Interval = 8 seconds,
--d/--diff <SECONDS>	Interval = <SECONDS>
+-d/--diff <SECONDS>	Interval = <SECONDS> second(s)
+			where <SECONDS> is a positive non-zero value
 ```
