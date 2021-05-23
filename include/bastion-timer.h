@@ -6,6 +6,7 @@
 #include <pthread.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <unistd.h>
 #ifdef WIN32
 #include <winsock2.h>
 #else /* this is linux */
@@ -21,6 +22,7 @@
 /* set flags */
 
 void *timer_main(void *args);
+int options_parse(int argc, char **argv);
 
 /*
 int timer_setup(uint32_t minute, uint32_t seconds, uint32_t n_decrement);

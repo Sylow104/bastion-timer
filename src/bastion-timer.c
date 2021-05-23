@@ -9,9 +9,9 @@ extern bool is_ready;
 
 void *timer_main(void *args)
 {
-        uint32_t interval = *(uint32_t *) args;
-        uint32_t i = 0;
-        
+        int interval = *(int *) args;
+        int i = 0;
+
         struct timeval time;
         pthread_mutex_lock(&mtx);
         while (!is_ready) {
@@ -20,8 +20,7 @@ void *timer_main(void *args)
         pthread_mutex_unlock(&mtx);
         while (1) {
                 if (i < interval) {
-                        fputc((i++) + '1', stdout);
-                        fputc(' ', stdout);
+                        printf("%d ", (i++) + 1);
                 }
                 fflush(stdout);
                 

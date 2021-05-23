@@ -4,14 +4,18 @@ bool is_ready = false;
 extern pthread_mutex_t mtx;
 extern pthread_cond_t cond;
 
-int main(int argc, char *argv)
+int main(int argc, char **argv)
 {
-        uint32_t minutes = 0;
-        uint32_t seconds = 0;
-        uint32_t interval = 8;
+        int interval;
         int c;
+	pthread_t thrd_id;
 
-        pthread_t thrd_id;
+	interval = options_parse(argc, argv);
+	if (interval < 0) {
+		fprintf(stderr, "Bad interval\n");
+		exit(EXIT_FAILURE);
+	}
+        
         if (pthread_create(&thrd_id, NULL, timer_main, (void *) &interval)) {
                 perror("pthread_create");
                 exit(EXIT_FAILURE);

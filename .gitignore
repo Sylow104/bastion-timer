@@ -6,3 +6,4 @@
 !LICENSE
 !*.c
 !*.h
+build/**
