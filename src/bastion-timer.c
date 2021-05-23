@@ -1,47 +1,20 @@
 #include "bastion-timer.h"
 
-extern bool is_ready;
-
 static uint32_t remaining_time = 0;
 static uint32_t decrement = 0;
 pthread_mutex_t mtx = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 
-bool is_ready = false;
-
-int main(int argc, char *argv)
-{
-        uint32_t minutes = 0;
-        uint32_t seconds = 0;
-        uint32_t interval = 8;
-        int c;
-
-        pthread_t thrd_id;
-        if (pthread_create(&thrd_id, NULL, timer_main, (void *) &interval)) {
-                perror("pthread_create");
-                exit(EXIT_FAILURE);
-        }
-        pthread_mutex_lock(&mtx);
-        printf("Press Enter to stop the timer\n");
-        is_ready = true;
-        pthread_mutex_unlock(&mtx);
-        pthread_cond_signal(&cond);
-
-        do {
-                c = fgetc(stdin);
-        } while (c != EOF && c != '\n');
-
-        printf("Stopped the timer...\n");
-        return 0;
-}
+extern bool is_ready;
 
 void *timer_main(void *args)
 {
         uint32_t interval = *(uint32_t *) args;
         uint32_t i = 0;
+        
         struct timeval time;
         pthread_mutex_lock(&mtx);
-        while (is_ready == false) {
+        while (!is_ready) {
                 pthread_cond_wait(&cond, &mtx);
         }
         pthread_mutex_unlock(&mtx);
