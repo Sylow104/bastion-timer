@@ -3,18 +3,15 @@
 bool is_ready = false;
 extern pthread_mutex_t mtx;
 extern pthread_cond_t cond;
+extern const struct argp diffs;
 
 int main(int argc, char **argv)
 {
-        int interval;
+        int interval = 10;
         int c;
 	pthread_t thrd_id;
 
-	interval = options_parse(argc, argv);
-	if (interval < 0) {
-		fprintf(stderr, "Bad interval\n");
-		exit(EXIT_FAILURE);
-	}
+	argp_parse(&diffs, argc, argv, 0, 0, &interval);
         
         if (pthread_create(&thrd_id, NULL, timer_main, (void *) &interval)) {
                 perror("pthread_create");
