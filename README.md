@@ -5,6 +5,7 @@ Currently, the project compiles on Fedora 32 with the GCC, glibc, pthreads
 already in place. See TODO regarding about porting to Windows or other platforms.
 
 # Requirements #
+- cmake
 - pthreads
 - glibc and GCC
 
